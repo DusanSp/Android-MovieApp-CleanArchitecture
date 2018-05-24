@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "com.example.dusan.movieapp"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath false
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField "String", "BASE_URL", '"http://api.themoviedb.org/3/"'
+            buildConfigField "String", "AUTH_KEY", '"cea376b36a54214485643698fe4bfd16"'
+
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // android
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportAppcompat}"
+    implementation "com.android.support.constraint:constraint-layout:${rootProject.ext.constraintLayout}"
+    implementation "com.android.support:support-annotations:${rootProject.ext.supportAnnotations}"
+    implementation "com.android.support:design:${rootProject.ext.supportDesign}"
+
+    // rxJava
+    implementation "io.reactivex.rxjava2:rxandroid:${rootProject.ext.rxandroid}"
+    implementation "io.reactivex.rxjava2:rxjava:${rootProject.ext.rxjava}"
+
+    // retrofit
+    implementation "com.squareup.retrofit2:retrofit:${rootProject.ext.retrofit}"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${rootProject.ext.adapterRxjava2}"
+
+    // okhttp3
+    implementation "com.squareup.okhttp3:okhttp:${rootProject.ext.okhttp}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${rootProject.ext.loggingInterceptor}"
+
+    // gson
+    implementation "com.google.code.gson:gson:${rootProject.ext.gson}"
+    implementation "com.squareup.retrofit2:converter-gson:${rootProject.ext.converterGson}"
+
+    // glide
+    implementation "jp.wasabeef:glide-transformations:${rootProject.ext.glideTransformations}"
+    implementation "com.github.bumptech.glide:glide:${rootProject.ext.glide}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${rootProject.ext.glideCompiler}"
+
+    // Architecture components
+    implementation "android.arch.lifecycle:common-java8:${rootProject.ext.lifecycle}"
+    implementation "android.arch.lifecycle:runtime:${rootProject.ext.lifecycle}"
+    implementation "android.arch.lifecycle:extensions:${rootProject.ext.lifecycle}"
+    implementation "android.arch.lifecycle:compiler:${rootProject.ext.lifecycle}"
+}
