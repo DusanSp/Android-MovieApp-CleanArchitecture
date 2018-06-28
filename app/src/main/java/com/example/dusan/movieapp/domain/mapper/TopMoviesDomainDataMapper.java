@@ -1,51 +1,51 @@
 package com.example.dusan.movieapp.domain.mapper;
 
 import com.example.dusan.movieapp.data.entity.MovieEntity;
-import com.example.dusan.movieapp.domain.data.TopMoviesDomainData;
-import com.example.dusan.movieapp.presentation.model.TopMovie;
+import com.example.dusan.movieapp.domain.data.TopMovieDomainData;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
 public class TopMoviesDomainDataMapper {
 
-  public TopMoviesDomainData transform(MovieEntity movieEntity) {
-    if(movieEntity == null) {
-      throw new IllegalArgumentException("Cannot transform null value");
+    public TopMovieDomainData transform(MovieEntity movieEntity) {
+        if (movieEntity == null) {
+            throw new IllegalArgumentException("Cannot transform null value");
+        }
+
+        final TopMovieDomainData topMovieDomainData = new TopMovieDomainData(movieEntity.getId());
+
+        topMovieDomainData.setAdult(movieEntity.getAdult());
+        topMovieDomainData.setBackdropPath(movieEntity.getBackdropPath());
+        topMovieDomainData.setGenreIds(movieEntity.getGenreIds());
+        topMovieDomainData.setOriginalLanguage(movieEntity.getOriginalLanguage());
+        topMovieDomainData.setOriginalTitle(movieEntity.getOriginalTitle());
+        topMovieDomainData.setOverview(movieEntity.getOverview());
+        topMovieDomainData.setPopularity(movieEntity.getPopularity());
+        topMovieDomainData.setPosterPath(movieEntity.getPosterPath());
+        topMovieDomainData.setReleaseDate(movieEntity.getReleaseDate());
+        topMovieDomainData.setTitle(movieEntity.getTitle());
+        topMovieDomainData.setVideo(movieEntity.getVideo());
+        topMovieDomainData.setVoteAverage(movieEntity.getVoteAverage());
+        topMovieDomainData.setVoteCount(movieEntity.getVoteCount());
+
+        return topMovieDomainData;
     }
 
-    final TopMoviesDomainData topMoviesDomainData = new TopMoviesDomainData(movieEntity.getId());
+    public Collection<TopMovieDomainData> transform(Collection<MovieEntity> topMoviesCollection) {
+        Collection<TopMovieDomainData> topMovieModelsCollection;
 
-    topMoviesDomainData.setAdult(movieEntity.getAdult());
-    topMoviesDomainData.setBackdropPath(movieEntity.getBackdropPath());
-    topMoviesDomainData.setGenreIds(movieEntity.getGenreIds());
-    topMoviesDomainData.setOriginalLanguage(movieEntity.getOriginalLanguage());
-    topMoviesDomainData.setOriginalTitle(movieEntity.getOriginalTitle());
-    topMoviesDomainData.setOverview(movieEntity.getOverview());
-    topMoviesDomainData.setPopularity(movieEntity.getPopularity());
-    topMoviesDomainData.setPosterPath(movieEntity.getPosterPath());
-    topMoviesDomainData.setReleaseDate(movieEntity.getReleaseDate());
-    topMoviesDomainData.setTitle(movieEntity.getTitle());
-    topMoviesDomainData.setVideo(movieEntity.getVideo());
-    topMoviesDomainData.setVoteAverage(movieEntity.getVoteAverage());
-    topMoviesDomainData.setVoteCount(movieEntity.getVoteCount());
+        if (topMoviesCollection != null && !topMoviesCollection.isEmpty()) {
+            topMovieModelsCollection = new ArrayList<>();
 
-    return topMoviesDomainData;
-  }
+            for (MovieEntity movieEntity : topMoviesCollection) {
+                topMovieModelsCollection.add(transform(movieEntity));
+            }
+        } else {
+            topMovieModelsCollection = Collections.emptyList();
+        }
 
-  public Collection<TopMoviesDomainData> transform(Collection<MovieEntity> topMoviesCollection) {
-    Collection<TopMoviesDomainData> topMovieModelsCollection;
-
-    if(topMoviesCollection != null && !topMoviesCollection.isEmpty()) {
-      topMovieModelsCollection = new ArrayList<>();
-
-      for(MovieEntity movieEntity : topMoviesCollection) {
-        topMovieModelsCollection.add(transform(movieEntity));
-      }
-    } else {
-      topMovieModelsCollection = Collections.emptyList();
+        return topMovieModelsCollection;
     }
-
-    return topMovieModelsCollection;
-  }
 }

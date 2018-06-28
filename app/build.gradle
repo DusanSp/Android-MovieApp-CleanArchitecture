@@ -15,6 +15,10 @@ android {
                 includeCompileClasspath false
             }
         }
+
+        testOptions {
+            unitTests.returnDefaultValues = true
+        }
     }
     buildTypes {
         release {
@@ -37,7 +41,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     // android
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportAppcompat}"
@@ -71,4 +75,11 @@ dependencies {
     implementation "android.arch.lifecycle:runtime:${rootProject.ext.lifecycle}"
     implementation "android.arch.lifecycle:extensions:${rootProject.ext.lifecycle}"
     implementation "android.arch.lifecycle:compiler:${rootProject.ext.lifecycle}"
+    testImplementation 'org.mockito:mockito-core:2.19.0'
+    testImplementation 'org.hamcrest:hamcrest-junit:2.0.0.0'
+    testImplementation("android.arch.core:core-testing:1.1.0", {
+        exclude group: 'com.android.support', module: 'support-compat'
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-core-utils'
+    })
 }
