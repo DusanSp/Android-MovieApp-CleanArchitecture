@@ -38,7 +38,8 @@ public class TopMoviesViewModel extends AndroidViewModel {
         this.movieModelDataMapper = new TopMoviesDataMapper();
         data = new MutableLiveData<>();
         page = new MutableLiveData<>();
-        page.setValue(1);
+
+        setPageValue(1);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class TopMoviesViewModel extends AndroidViewModel {
         });
     }
 
-    public void setData(Resource<List<TopMovieDomainData>> resource) {
+    private void setData(Resource<List<TopMovieDomainData>> resource) {
         Collection<TopMovie> topMovieModelCollection =
                 TopMoviesViewModel.this.movieModelDataMapper.transform(resource.getData());
 

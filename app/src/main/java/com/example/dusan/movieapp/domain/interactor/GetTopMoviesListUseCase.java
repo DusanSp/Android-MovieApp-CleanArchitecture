@@ -24,7 +24,7 @@ public class GetTopMoviesListUseCase extends UseCase<BaseResponse<TopMovieDomain
 
         private final int pageNumber;
 
-        public Params(int pageNumber) {
+        private Params(int pageNumber) {
             this.pageNumber = pageNumber;
         }
 
