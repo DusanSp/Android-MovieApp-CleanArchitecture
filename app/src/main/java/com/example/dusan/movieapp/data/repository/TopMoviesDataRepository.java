@@ -9,7 +9,7 @@ import com.example.dusan.movieapp.domain.repository.ITopMoviesRepository;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public class TopMoviesDataRepository implements ITopMoviesRepository {
 
@@ -20,7 +20,7 @@ public class TopMoviesDataRepository implements ITopMoviesRepository {
     }
 
     @Override
-    public Observable<BaseResponse<TopMovieDomainData>> getTopMovies(int page) {
+    public Single<BaseResponse<TopMovieDomainData>> getTopMovies(int page) {
         return ApiManager.getApi().getTopRatedMovies(page)
                 .map(movieEntityBaseResponse -> {
 

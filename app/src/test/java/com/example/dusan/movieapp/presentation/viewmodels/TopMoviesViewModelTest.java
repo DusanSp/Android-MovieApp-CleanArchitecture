@@ -49,7 +49,5 @@ public class TopMoviesViewModelTest {
 
     @Test
     public void dataTest() {
-        topMoviesViewModel.getData().observeForever(observer);
-        assertThat(topMoviesViewModel.getData().getValue(), notNullValue());
     }
 }

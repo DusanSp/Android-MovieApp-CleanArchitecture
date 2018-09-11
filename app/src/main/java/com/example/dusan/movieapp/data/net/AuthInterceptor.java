@@ -11,6 +11,8 @@ import okhttp3.Response;
 
 public class AuthInterceptor implements Interceptor {
 
+    private static final String API_KEY = "api_key";
+
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
@@ -18,7 +20,7 @@ public class AuthInterceptor implements Interceptor {
         HttpUrl.Builder httpUrlBuilder = request.url().newBuilder(request.url().toString());
 
         if (httpUrlBuilder != null) {
-            httpUrlBuilder.addQueryParameter("api_key", BuildConfig.AUTH_KEY);
+            httpUrlBuilder.addQueryParameter(API_KEY, BuildConfig.AUTH_KEY);
 
             request = request.newBuilder().url(httpUrlBuilder.build()).build();
         }

@@ -4,7 +4,7 @@ import android.app.Activity;
 
 public class ActivityDataBindingComponent implements android.databinding.DataBindingComponent {
 
-    private ActivityBindingAdapters activityBindingAdapters;
+    private final ActivityBindingAdapters activityBindingAdapters;
 
     public ActivityDataBindingComponent(Activity activity) {
         activityBindingAdapters = new ActivityBindingAdapters(activity);

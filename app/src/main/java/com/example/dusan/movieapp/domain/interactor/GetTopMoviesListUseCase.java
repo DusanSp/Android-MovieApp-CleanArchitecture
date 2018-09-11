@@ -5,7 +5,7 @@ import com.example.dusan.movieapp.data.repository.TopMoviesDataRepository;
 import com.example.dusan.movieapp.domain.data.TopMovieDomainData;
 import com.example.dusan.movieapp.domain.repository.ITopMoviesRepository;
 
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 public class GetTopMoviesListUseCase extends UseCase<BaseResponse<TopMovieDomainData>, GetTopMoviesListUseCase.Params> {
 
@@ -16,7 +16,7 @@ public class GetTopMoviesListUseCase extends UseCase<BaseResponse<TopMovieDomain
     }
 
     @Override
-    Observable<BaseResponse<TopMovieDomainData>> buildUseCaseObservable(Params params) {
+    Single<BaseResponse<TopMovieDomainData>> buildUseCaseObservable(Params params) {
         return this.topMoviesRepository.getTopMovies(params.getPageNumber());
     }
 

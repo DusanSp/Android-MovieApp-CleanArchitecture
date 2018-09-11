@@ -1,26 +1,32 @@
 package com.example.dusan.movieapp.presentation.navigation;
 
-import android.content.Context;
 import android.content.Intent;
-
+import com.example.dusan.movieapp.presentation.model.TopMovie;
+import com.example.dusan.movieapp.presentation.view.activity.MovieActivity;
 import com.example.dusan.movieapp.presentation.view.activity.TopMoviesActivity;
+import com.example.dusan.movieapp.presentation.view.application.MovieApplication;
 
 public class Navigator {
 
-    private static Navigator instance = null;
+  private static Navigator instance = null;
 
-    public static Navigator getInstance() {
-        if (instance == null) {
-            instance = new Navigator();
-        }
-
-        return instance;
+  public static Navigator getInstance() {
+    if (instance == null) {
+      instance = new Navigator();
     }
 
-    public void navigateToTopicMoviesActivity(Context context) {
-        if (context != null) {
-            Intent topMoviesIntent = TopMoviesActivity.getCallingIntent(context);
-            context.startActivity(topMoviesIntent);
-        }
-    }
+    return instance;
+  }
+
+  public void navigateToTopicMoviesActivity() {
+    Intent topMoviesIntent = TopMoviesActivity
+        .createIntent(MovieApplication.getApplication().getApplicationContext());
+    MovieApplication.getApplication().getApplicationContext().startActivity(topMoviesIntent);
+  }
+
+  public void navigateToMovieActivity(TopMovie topMovie) {
+    Intent movieIntent = MovieActivity
+        .createIntent(MovieApplication.getApplication().getApplicationContext(), topMovie);
+    MovieApplication.getApplication().getApplicationContext().startActivity(movieIntent);
+  }
 }
