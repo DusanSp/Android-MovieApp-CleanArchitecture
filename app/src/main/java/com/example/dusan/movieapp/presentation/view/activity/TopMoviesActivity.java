@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.recyclerview.extensions.AsyncDifferConfig;
 import android.support.v7.util.DiffUtil;
 import android.util.Log;
-import com.example.dusan.movieapp.BR;
 import com.example.dusan.movieapp.R;
 import com.example.dusan.movieapp.databinding.ActivityTopMoviesBinding;
 import com.example.dusan.movieapp.presentation.adapters.TopMoviesAdapter;
@@ -25,9 +24,9 @@ public class TopMoviesActivity extends AppCompatActivity {
 
   private static final String TAG = TopMoviesActivity.class.getSimpleName();
 
-  private TopMoviesViewModel mTopMoviesViewModel;
-  private ActivityTopMoviesBinding mDataBinding;
-  private TopMoviesAdapter mTopMoviesAdapter;
+  private TopMoviesViewModel topMoviesViewModel;
+  private ActivityTopMoviesBinding dataBinding;
+  private TopMoviesAdapter topMoviesAdapter;
 
   public static Intent createIntent(@NonNull Context context) {
     return new Intent(context, TopMoviesActivity.class);
@@ -47,7 +46,7 @@ public class TopMoviesActivity extends AppCompatActivity {
 
   private void setupAdapter() {
     final DataBindingComponent dataBindingComponent = new ActivityDataBindingComponent(this);
-    mTopMoviesAdapter = new TopMoviesAdapter(
+    topMoviesAdapter = new TopMoviesAdapter(
         new AsyncDifferConfig.Builder<>(new DiffUtil.ItemCallback<TopMovie>() {
           @Override
           public boolean areItemsTheSame(TopMovie oldItem, TopMovie newItem) {
@@ -59,18 +58,17 @@ public class TopMoviesActivity extends AppCompatActivity {
             return oldItem.getId() == newItem.getId();
           }
         }), dataBindingComponent);
-    mDataBinding.recyclerView.setAdapter(mTopMoviesAdapter);
+    dataBinding.recyclerView.setAdapter(topMoviesAdapter);
   }
 
   private void setupDataBinding() {
-    mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_top_movies);
-    mDataBinding.setLifecycleOwner(this);
-    mDataBinding.setVariable(BR.vm, mTopMoviesViewModel);
+    dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_top_movies);
+    dataBinding.setLifecycleOwner(this);
   }
 
   private void setupViewModel() {
-    mTopMoviesViewModel = ViewModelProviders.of(this).get(TopMoviesViewModel.class);
-    mTopMoviesViewModel.getTopMovies().observe(this, listResource -> {
+    topMoviesViewModel = ViewModelProviders.of(this).get(TopMoviesViewModel.class);
+    topMoviesViewModel.getTopMovies().observe(this, listResource -> {
       if (listResource != null) {
         handleResponse(listResource);
       }
@@ -101,14 +99,14 @@ public class TopMoviesActivity extends AppCompatActivity {
 
   private void handleLoadingState() {
     Log.d(TAG, "LOADING");
-    mDataBinding.setLoadingGone(false);
+    dataBinding.setLoadingGone(false);
   }
 
   private void handleSuccessState(List<TopMovie> topMoviesList) {
     if (topMoviesList != null) {
       Log.d(TAG, "SUCCESS");
-      mDataBinding.setLoadingGone(true);
-      mTopMoviesAdapter.submitList(topMoviesList);
+      dataBinding.setLoadingGone(true);
+      topMoviesAdapter.submitList(topMoviesList);
       for (TopMovie topMovieModel : topMoviesList) {
         Log.d(TAG, topMovieModel.getTitle());
       }
@@ -117,6 +115,6 @@ public class TopMoviesActivity extends AppCompatActivity {
 
   private void handleErrorState(String message) {
     Log.e(TAG, message);
-    mDataBinding.setLoadingGone(true);
+    dataBinding.setLoadingGone(true);
   }
 }

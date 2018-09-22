@@ -2,7 +2,7 @@ package com.example.dusan.movieapp.presentation.navigation;
 
 import android.content.Intent;
 import com.example.dusan.movieapp.presentation.model.TopMovie;
-import com.example.dusan.movieapp.presentation.view.activity.MovieActivity;
+import com.example.dusan.movieapp.presentation.view.activity.MovieDetailActivity;
 import com.example.dusan.movieapp.presentation.view.activity.TopMoviesActivity;
 import com.example.dusan.movieapp.presentation.view.application.MovieApplication;
 
@@ -25,7 +25,7 @@ public class Navigator {
   }
 
   public void navigateToMovieActivity(TopMovie topMovie) {
-    Intent movieIntent = MovieActivity
+    Intent movieIntent = MovieDetailActivity
         .createIntent(MovieApplication.getApplication().getApplicationContext(), topMovie);
     MovieApplication.getApplication().getApplicationContext().startActivity(movieIntent);
   }

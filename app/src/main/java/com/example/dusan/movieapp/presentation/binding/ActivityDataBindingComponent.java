@@ -4,13 +4,13 @@ import android.app.Activity;
 
 public class ActivityDataBindingComponent implements android.databinding.DataBindingComponent {
 
-    private final ActivityBindingAdapters activityBindingAdapters;
+  private final ActivityBindingAdapters activityBindingAdapters;
 
-    public ActivityDataBindingComponent(Activity activity) {
-        activityBindingAdapters = new ActivityBindingAdapters(activity);
-    }
+  public ActivityDataBindingComponent(Activity activity) {
+    activityBindingAdapters = new ActivityBindingAdapters(activity);
+  }
 
-    public ActivityBindingAdapters getActivityBindingAdapters() {
-        return activityBindingAdapters;
-    }
+  public ActivityBindingAdapters getActivityBindingAdapters() {
+    return activityBindingAdapters;
+  }
 }

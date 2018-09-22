@@ -29,7 +29,7 @@ android {
             buildConfigField "String", "AUTH_KEY", '"cea376b36a54214485643698fe4bfd16"'
         }
         debug {
-            buildConfigField "String", "BASE_URL", '"http://api.themoviedb.org/3"'
+            buildConfigField "String", "BASE_URL", '"http://api.themoviedb.org/3/"'
             buildConfigField "String", "AUTH_KEY", '"cea376b36a54214485643698fe4bfd16"'
 
         }

@@ -4,7 +4,7 @@ import android.app.Application;
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.arch.lifecycle.Observer;
 
-import com.example.dusan.movieapp.domain.interactor.GetTopMoviesListUseCase;
+import com.example.dusan.movieapp.domain.interactor.TopMoviesListUseCase;
 import com.example.dusan.movieapp.presentation.model.Resource;
 import com.example.dusan.movieapp.presentation.model.TopMovie;
 
@@ -35,7 +35,7 @@ public class TopMoviesViewModelTest {
     @Mock
     private Observer<Resource<List<TopMovie>>> observer;
     @Mock
-    private GetTopMoviesListUseCase getTopMoviesListUseCaseUseCase;
+    private TopMoviesListUseCase topMoviesListUseCaseUseCase;
 
     @Before
     public void setUp() {

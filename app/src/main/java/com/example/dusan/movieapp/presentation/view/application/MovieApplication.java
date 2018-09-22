@@ -32,7 +32,6 @@ public class MovieApplication extends Application {
 
     private void iniGson() {
         sGson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
                 .serializeNulls()
                 .create();
     }

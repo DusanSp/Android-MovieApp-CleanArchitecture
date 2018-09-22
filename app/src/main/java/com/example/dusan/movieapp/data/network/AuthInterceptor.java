@@ -1,4 +1,4 @@
-package com.example.dusan.movieapp.data.net;
+package com.example.dusan.movieapp.data.network;
 
 import com.example.dusan.movieapp.BuildConfig;
 

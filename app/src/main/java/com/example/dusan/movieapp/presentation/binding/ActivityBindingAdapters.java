@@ -17,9 +17,16 @@ public class ActivityBindingAdapters {
   }
 
   @BindingAdapter("imageUrl")
-  public void bindImage(ImageView imageView, String url) {
-    Glide.with(activity)
+  public static void bindImage(ImageView imageView, String url) {
+    Glide.with(imageView.getContext())
         .load("https://image.tmdb.org/t/p/w92" + url)
+        .into(imageView);
+  }
+
+  @BindingAdapter("posterUrl")
+  public static void bindPosterImage(ImageView imageView, String url) {
+    Glide.with(imageView.getContext())
+        .load("https://image.tmdb.org/t/p/w780" + url)
         .into(imageView);
   }
 

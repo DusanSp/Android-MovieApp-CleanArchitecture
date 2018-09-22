@@ -7,11 +7,11 @@ import com.example.dusan.movieapp.domain.repository.ITopMoviesRepository;
 
 import io.reactivex.Single;
 
-public class GetTopMoviesListUseCase extends UseCase<BaseResponse<TopMovieDomainData>, GetTopMoviesListUseCase.Params> {
+public class TopMoviesListUseCase extends UseCase<BaseResponse<TopMovieDomainData>, TopMoviesListUseCase.Params> {
 
     private ITopMoviesRepository topMoviesRepository;
 
-    public GetTopMoviesListUseCase() {
+    public TopMoviesListUseCase() {
         this.topMoviesRepository = new TopMoviesDataRepository();
     }
 

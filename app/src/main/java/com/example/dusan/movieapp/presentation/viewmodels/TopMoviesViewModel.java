@@ -9,8 +9,8 @@ import android.support.annotation.NonNull;
 import com.example.dusan.movieapp.data.entity.BaseResponse;
 import com.example.dusan.movieapp.domain.data.TopMovieDomainData;
 import com.example.dusan.movieapp.domain.interactor.DefaultSingleObserver;
-import com.example.dusan.movieapp.domain.interactor.GetTopMoviesListUseCase;
-import com.example.dusan.movieapp.domain.interactor.GetTopMoviesListUseCase.Params;
+import com.example.dusan.movieapp.domain.interactor.TopMoviesListUseCase;
+import com.example.dusan.movieapp.domain.interactor.TopMoviesListUseCase.Params;
 import com.example.dusan.movieapp.presentation.mapper.TopMoviesDataMapper;
 import com.example.dusan.movieapp.presentation.model.Resource;
 import com.example.dusan.movieapp.presentation.model.TopMovie;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public class TopMoviesViewModel extends AndroidViewModel {
 
-  private GetTopMoviesListUseCase getTopMoviesListUseCaseUseCase;
+  private TopMoviesListUseCase topMoviesListUseCaseUseCase;
   private TopMoviesDataMapper movieModelDataMapper;
 
   // received data
@@ -31,7 +31,7 @@ public class TopMoviesViewModel extends AndroidViewModel {
   public TopMoviesViewModel(@NonNull Application application) {
     super(application);
 
-    this.getTopMoviesListUseCaseUseCase = new GetTopMoviesListUseCase();
+    this.topMoviesListUseCaseUseCase = new TopMoviesListUseCase();
     this.movieModelDataMapper = new TopMoviesDataMapper();
 
     data = new MutableLiveData<>();
@@ -44,7 +44,7 @@ public class TopMoviesViewModel extends AndroidViewModel {
 
   @Override
   protected void onCleared() {
-    this.getTopMoviesListUseCaseUseCase.dispose();
+    this.topMoviesListUseCaseUseCase.dispose();
     super.onCleared();
   }
 
@@ -54,7 +54,7 @@ public class TopMoviesViewModel extends AndroidViewModel {
 
   public LiveData<Resource<List<TopMovie>>> getTopMovies() {
     return Transformations.switchMap(page, input -> {
-      this.getTopMoviesListUseCaseUseCase
+      this.topMoviesListUseCaseUseCase
           .execute(new TopMoviesSingleObserver(), Params.page(input));
       return data;
     });
