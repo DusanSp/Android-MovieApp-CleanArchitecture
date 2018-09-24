@@ -1,56 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
-    repositories {
-        google()
-        jcenter()
-    }
+    apply from: 'versions.gradle'
+    addRepos(repositories)
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.4'
-        
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath deps.android_gradle_plugin
     }
 }
 
 allprojects {
-    repositories {
-        jcenter()
-        mavenLocal()
-        maven { url 'https://maven.google.com' }
-        google()
-    }
+    addRepos(repositories)
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-ext {
-    minSdkVersion = 19
-    targetSdkVersion = 27
-
-    supportDesign = '27.1.1'
-    supportAppcompat = '27.1.1'
-    supportAnnotations = '27.1.1'
-    constraintLayout = '1.1.0'
-
-    rxjava = '2.1.13'
-    rxandroid = '2.0.2'
-
-    glideTransformations = '3.0.1'
-    glide = '4.4.0'
-    glideCompiler = "4.4.0"
-
-    okhttp = '3.10.0'
-    loggingInterceptor = '3.9.0'
-    retrofit = '2.3.0'
-    adapterRxjava2 = '2.3.0'
-
-    gson = '2.8.2'
-    converterGson = '2.3.0'
-
-    lifecycle = '1.1.1'
 }
