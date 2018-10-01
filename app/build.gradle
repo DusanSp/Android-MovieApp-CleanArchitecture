@@ -71,4 +71,10 @@ dependencies {
     implementation deps.lifecycle.extensions
     implementation deps.lifecycle.java8
     annotationProcessor deps.lifecycle.compiler
+
+    // dagger2
+    implementation deps.dagger.android
+    implementation deps.dagger.runtime
+    annotationProcessor deps.dagger.compiler
+    annotationProcessor deps.dagger.dagger_android_processor
 }

@@ -1,40 +1,23 @@
 package com.example.dusan.movieapp.data.repository;
 
 import com.example.dusan.movieapp.data.entity.BaseResponse;
-import com.example.dusan.movieapp.data.network.ApiManager;
-import com.example.dusan.movieapp.domain.data.TopMovieDomainData;
-import com.example.dusan.movieapp.domain.mapper.TopMoviesDomainDataMapper;
+import com.example.dusan.movieapp.data.entity.TopMovieEntity;
+import com.example.dusan.movieapp.data.network.ApiMethods;
 import com.example.dusan.movieapp.domain.repository.ITopMoviesRepository;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
 import io.reactivex.Single;
+import javax.inject.Inject;
 
 public class TopMoviesDataRepository implements ITopMoviesRepository {
 
-    private TopMoviesDomainDataMapper topMoviesDomainDataMapper;
+  private final ApiMethods apiMethods;
 
-    public TopMoviesDataRepository() {
-        this.topMoviesDomainDataMapper = new TopMoviesDomainDataMapper();
-    }
+  @Inject
+  public TopMoviesDataRepository(ApiMethods apiMethods) {
+    this.apiMethods = apiMethods;
+  }
 
-    @Override
-    public Single<BaseResponse<TopMovieDomainData>> getTopMovies(int page) {
-        return ApiManager.getApi().getTopRatedMovies(page)
-                .map(movieEntityBaseResponse -> {
-
-                    Collection<TopMovieDomainData> topMovieDomainData =
-                            topMoviesDomainDataMapper.transform(movieEntityBaseResponse.getResults());
-
-                    BaseResponse<TopMovieDomainData> dataBaseResponse =
-                            new BaseResponse<>(new ArrayList<>(topMovieDomainData));
-
-                    dataBaseResponse.setPage(movieEntityBaseResponse.getPage());
-                    dataBaseResponse.setTotalPages(movieEntityBaseResponse.getTotalPages());
-                    dataBaseResponse.setTotalResults(movieEntityBaseResponse.getTotalResults());
-
-                    return dataBaseResponse;
-                });
-    }
+  @Override
+  public Single<BaseResponse<TopMovieEntity>> getTopMovies(int page) {
+    return apiMethods.getTopRatedMovies(page);
+  }
 }

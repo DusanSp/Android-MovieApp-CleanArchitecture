@@ -4,13 +4,15 @@ import com.example.dusan.movieapp.data.entity.MovieDetail;
 import com.example.dusan.movieapp.data.repository.MovieDetailRepository;
 import com.example.dusan.movieapp.domain.repository.IMovieDetailRepository;
 import io.reactivex.Single;
+import javax.inject.Inject;
 
 public class MovieDetailsUseCase extends UseCase<MovieDetail, MovieDetailsUseCase.Params> {
 
-  private IMovieDetailRepository movieDetailRepository;
+  private final IMovieDetailRepository movieDetailRepository;
 
-  public MovieDetailsUseCase() {
-    this.movieDetailRepository = new MovieDetailRepository();
+  @Inject
+  public MovieDetailsUseCase(MovieDetailRepository movieDetailRepository) {
+    this.movieDetailRepository = movieDetailRepository;
   }
 
   @Override

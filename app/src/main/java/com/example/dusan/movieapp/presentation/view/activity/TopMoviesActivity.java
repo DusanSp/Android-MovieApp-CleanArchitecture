@@ -1,6 +1,6 @@
 package com.example.dusan.movieapp.presentation.view.activity;
 
-import android.arch.lifecycle.ViewModelProviders;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingComponent;
@@ -18,13 +18,23 @@ import com.example.dusan.movieapp.presentation.binding.ActivityDataBindingCompon
 import com.example.dusan.movieapp.presentation.model.Resource;
 import com.example.dusan.movieapp.presentation.model.TopMovie;
 import com.example.dusan.movieapp.presentation.viewmodels.TopMoviesViewModel;
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 import java.util.List;
+import javax.inject.Inject;
 
-public class TopMoviesActivity extends AppCompatActivity {
+public class TopMoviesActivity extends AppCompatActivity implements HasActivityInjector {
 
   private static final String TAG = TopMoviesActivity.class.getSimpleName();
 
-  private TopMoviesViewModel topMoviesViewModel;
+  @Inject
+  DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
+
+  @Inject
+  TopMoviesViewModel topMoviesViewModel;
+
   private ActivityTopMoviesBinding dataBinding;
   private TopMoviesAdapter topMoviesAdapter;
 
@@ -34,6 +44,7 @@ public class TopMoviesActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_top_movies);
 
@@ -67,7 +78,6 @@ public class TopMoviesActivity extends AppCompatActivity {
   }
 
   private void setupViewModel() {
-    topMoviesViewModel = ViewModelProviders.of(this).get(TopMoviesViewModel.class);
     topMoviesViewModel.getTopMovies().observe(this, listResource -> {
       if (listResource != null) {
         handleResponse(listResource);
@@ -116,5 +126,10 @@ public class TopMoviesActivity extends AppCompatActivity {
   private void handleErrorState(String message) {
     Log.e(TAG, message);
     dataBinding.setLoadingGone(true);
+  }
+
+  @Override
+  public AndroidInjector<Activity> activityInjector() {
+    return activityDispatchingAndroidInjector;
   }
 }

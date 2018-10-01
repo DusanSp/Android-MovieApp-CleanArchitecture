@@ -1,5 +1,6 @@
 package com.example.dusan.movieapp.presentation.view.activity;
 
+import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
@@ -16,15 +17,24 @@ import com.example.dusan.movieapp.presentation.model.MovieDetail;
 import com.example.dusan.movieapp.presentation.model.Resource;
 import com.example.dusan.movieapp.presentation.model.TopMovie;
 import com.example.dusan.movieapp.presentation.viewmodels.MovieDetailViewModel;
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
+import javax.inject.Inject;
 
-public class MovieDetailActivity extends AppCompatActivity {
+public class MovieDetailActivity extends AppCompatActivity implements HasActivityInjector {
 
   private static final String TAG = MovieDetailActivity.class.getSimpleName();
   private static final String MOVIE_ID_EXTRA =
       MovieDetailActivity.class.getSimpleName() + ".MOVIE_ID_EXTRA";
 
-  private MovieDetailViewModel movieDetailViewModel;
   private ActivityMovieDetailBinding dataBinding;
+
+  @Inject
+  DispatchingAndroidInjector<Activity> activityDispatchingAndroidInjector;
+  @Inject
+  MovieDetailViewModel movieDetailViewModel;
 
   public static Intent createIntent(@NonNull Context context, TopMovie topMovie) {
     Intent intent = new Intent(context, MovieDetailActivity.class);
@@ -34,6 +44,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
+    AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
 
     setContentView(R.layout.activity_movie_detail);
@@ -57,9 +68,7 @@ public class MovieDetailActivity extends AppCompatActivity {
   }
 
   private void setupViewModel(long movieId) {
-    MovieDetailViewModel.Factory factory = new MovieDetailViewModel.Factory(getApplication(),
-        movieId);
-    movieDetailViewModel = ViewModelProviders.of(this, factory).get(MovieDetailViewModel.class);
+    movieDetailViewModel.setMovieId(movieId);
     movieDetailViewModel.getData().observe(this, movieDetailResource -> {
       if (movieDetailResource != null) {
         handleResponse(movieDetailResource);
@@ -123,5 +132,10 @@ public class MovieDetailActivity extends AppCompatActivity {
       default:
         return super.onOptionsItemSelected(item);
     }
+  }
+
+  @Override
+  public AndroidInjector<Activity> activityInjector() {
+    return activityDispatchingAndroidInjector;
   }
 }

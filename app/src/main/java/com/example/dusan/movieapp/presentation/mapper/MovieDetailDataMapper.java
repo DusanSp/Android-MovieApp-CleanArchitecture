@@ -1,11 +1,18 @@
 package com.example.dusan.movieapp.presentation.mapper;
 
 import com.example.dusan.movieapp.presentation.model.MovieDetail;
+import javax.inject.Inject;
 
 public class MovieDetailDataMapper {
 
-  public MovieDetail transform(com.example.dusan.movieapp.data.entity.MovieDetail movieDetailSource) {
-    if(movieDetailSource == null) {
+  @Inject
+  public MovieDetailDataMapper() {
+
+  }
+
+  public MovieDetail transform(
+      com.example.dusan.movieapp.data.entity.MovieDetail movieDetailSource) {
+    if (movieDetailSource == null) {
       throw new IllegalArgumentException("Cannot transform null value");
     }
 

@@ -1,33 +1,33 @@
 package com.example.dusan.movieapp.presentation.viewmodels;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.arch.lifecycle.ViewModelProvider;
-import android.support.annotation.NonNull;
 import com.example.dusan.movieapp.domain.interactor.DefaultSingleObserver;
 import com.example.dusan.movieapp.domain.interactor.MovieDetailsUseCase;
 import com.example.dusan.movieapp.domain.interactor.MovieDetailsUseCase.Params;
 import com.example.dusan.movieapp.presentation.mapper.MovieDetailDataMapper;
 import com.example.dusan.movieapp.presentation.model.MovieDetail;
 import com.example.dusan.movieapp.presentation.model.Resource;
+import javax.inject.Inject;
 
-public class MovieDetailViewModel extends AndroidViewModel {
+public class MovieDetailViewModel extends ViewModel {
 
-  private MovieDetailsUseCase movieDetailsUseCase;
-  private MovieDetailDataMapper movieDetailDataMapper;
+  private final MovieDetailsUseCase movieDetailsUseCase;
+  private final MovieDetailDataMapper movieDetailDataMapper;
   private MutableLiveData<Resource<MovieDetail>> data;
   private long movieId;
 
-  public MovieDetailViewModel(@NonNull Application application, long movieId) {
-    super(application);
-
-    this.movieId = movieId;
-    this.movieDetailsUseCase = new MovieDetailsUseCase();
-    this.movieDetailDataMapper = new MovieDetailDataMapper();
+  @Inject
+  public MovieDetailViewModel(MovieDetailsUseCase movieDetailsUseCase,
+      MovieDetailDataMapper movieDetailDataMapper) {
+    this.movieDetailsUseCase = movieDetailsUseCase;
+    this.movieDetailDataMapper = movieDetailDataMapper;
     this.data = new MutableLiveData<>();
+  }
+
+  public void setMovieId(long movieId) {
+    this.movieId = movieId;
   }
 
   private void setData(Resource<com.example.dusan.movieapp.data.entity.MovieDetail> resource) {
@@ -60,26 +60,6 @@ public class MovieDetailViewModel extends AndroidViewModel {
     @Override
     public void onError(Throwable e) {
       MovieDetailViewModel.this.setData(Resource.error(e.getMessage(), null));
-    }
-  }
-
-
-  public static class Factory extends ViewModelProvider.NewInstanceFactory {
-
-    @NonNull
-    private final Application application;
-    private final long movieId;
-
-    public Factory(@NonNull Application application, long movieId) {
-      this.application = application;
-      this.movieId = movieId;
-    }
-
-    @NonNull
-    @Override
-    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-      //noinspection unchecked
-      return (T) new MovieDetailViewModel(application, movieId);
     }
   }
 }

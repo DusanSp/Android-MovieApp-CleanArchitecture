@@ -4,14 +4,14 @@ import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import com.example.dusan.movieapp.presentation.injection.AppComponent;
+import com.example.dusan.movieapp.presentation.injection.DaggerAppComponent;
+import dagger.android.AndroidInjector;
+import dagger.android.DaggerApplication;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-public class MovieApplication extends Application {
+public class MovieApplication extends DaggerApplication {
 
   private static MovieApplication sInstance;
-  private static Gson sGson;
 
   public static Application getApplication() {
     return sInstance;
@@ -22,18 +22,13 @@ public class MovieApplication extends Application {
     super.onCreate();
 
     sInstance = this;
-
-    iniGson();
   }
 
-  public static Gson getGson() {
-    return sGson;
-  }
-
-  private void iniGson() {
-    sGson = new GsonBuilder()
-        .serializeNulls()
-        .create();
+  @Override
+  protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+    AppComponent appComponent = DaggerAppComponent.builder().application(this).build();
+    appComponent.inject(this);
+    return appComponent;
   }
 
   public static boolean haveInternetConnection() {

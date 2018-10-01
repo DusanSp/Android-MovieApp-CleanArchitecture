@@ -1,38 +1,37 @@
 package com.example.dusan.movieapp.presentation.viewmodels;
 
-import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
-import android.support.annotation.NonNull;
+import android.arch.lifecycle.ViewModel;
 import com.example.dusan.movieapp.data.entity.BaseResponse;
 import com.example.dusan.movieapp.domain.data.TopMovieDomainData;
 import com.example.dusan.movieapp.domain.interactor.DefaultSingleObserver;
-import com.example.dusan.movieapp.domain.interactor.TopMoviesListUseCase;
-import com.example.dusan.movieapp.domain.interactor.TopMoviesListUseCase.Params;
+import com.example.dusan.movieapp.domain.interactor.TopMoviesUseCase;
+import com.example.dusan.movieapp.domain.interactor.TopMoviesUseCase.Params;
 import com.example.dusan.movieapp.presentation.mapper.TopMoviesDataMapper;
 import com.example.dusan.movieapp.presentation.model.Resource;
 import com.example.dusan.movieapp.presentation.model.TopMovie;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import javax.inject.Inject;
 
-public class TopMoviesViewModel extends AndroidViewModel {
+public class TopMoviesViewModel extends ViewModel {
 
-  private TopMoviesListUseCase topMoviesListUseCaseUseCase;
-  private TopMoviesDataMapper movieModelDataMapper;
+  public final TopMoviesUseCase topMoviesUseCaseUseCase;
+  public final TopMoviesDataMapper movieModelDataMapper;
 
   // received data
   public final MutableLiveData<Resource<List<TopMovie>>> data;
   // page number
   private final MutableLiveData<Integer> page;
 
-  public TopMoviesViewModel(@NonNull Application application) {
-    super(application);
+  @Inject
+  public TopMoviesViewModel(TopMoviesUseCase topMoviesUseCaseUseCase, TopMoviesDataMapper movieModelDataMapper) {
 
-    this.topMoviesListUseCaseUseCase = new TopMoviesListUseCase();
-    this.movieModelDataMapper = new TopMoviesDataMapper();
+    this.topMoviesUseCaseUseCase = topMoviesUseCaseUseCase;
+    this.movieModelDataMapper = movieModelDataMapper;
 
     data = new MutableLiveData<>();
     data.setValue(Resource.loading(null));
@@ -44,7 +43,7 @@ public class TopMoviesViewModel extends AndroidViewModel {
 
   @Override
   protected void onCleared() {
-    this.topMoviesListUseCaseUseCase.dispose();
+    this.topMoviesUseCaseUseCase.dispose();
     super.onCleared();
   }
 
@@ -54,7 +53,7 @@ public class TopMoviesViewModel extends AndroidViewModel {
 
   public LiveData<Resource<List<TopMovie>>> getTopMovies() {
     return Transformations.switchMap(page, input -> {
-      this.topMoviesListUseCaseUseCase
+      this.topMoviesUseCaseUseCase
           .execute(new TopMoviesSingleObserver(), Params.page(input));
       return data;
     });
