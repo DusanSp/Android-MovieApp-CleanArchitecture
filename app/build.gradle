@@ -73,7 +73,7 @@ dependencies {
     annotationProcessor deps.lifecycle.compiler
 
     // dagger2
-    implementation deps.dagger.android
+    implementation deps.dagger.android_support
     implementation deps.dagger.runtime
     annotationProcessor deps.dagger.compiler
     annotationProcessor deps.dagger.dagger_android_processor

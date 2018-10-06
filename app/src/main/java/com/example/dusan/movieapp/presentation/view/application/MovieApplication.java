@@ -7,7 +7,7 @@ import android.net.NetworkInfo;
 import com.example.dusan.movieapp.presentation.injection.AppComponent;
 import com.example.dusan.movieapp.presentation.injection.DaggerAppComponent;
 import dagger.android.AndroidInjector;
-import dagger.android.DaggerApplication;
+import dagger.android.support.DaggerApplication;
 
 public class MovieApplication extends DaggerApplication {
 
