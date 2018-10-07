@@ -2,7 +2,6 @@ package com.example.dusan.movieapp.presentation.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,20 +13,12 @@ import com.example.dusan.movieapp.presentation.model.MovieDetail;
 import com.example.dusan.movieapp.presentation.model.Resource;
 import com.example.dusan.movieapp.presentation.model.TopMovie;
 import com.example.dusan.movieapp.presentation.viewmodels.MovieDetailViewModel;
-import dagger.android.AndroidInjection;
-import dagger.android.support.DaggerAppCompatActivity;
-import javax.inject.Inject;
 
-public class MovieDetailActivity extends DaggerAppCompatActivity {
+public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel, ActivityMovieDetailBinding> {
 
   private static final String TAG = MovieDetailActivity.class.getSimpleName();
   private static final String MOVIE_ID_EXTRA =
       MovieDetailActivity.class.getSimpleName() + ".MOVIE_ID_EXTRA";
-
-  private ActivityMovieDetailBinding dataBinding;
-
-  @Inject
-  MovieDetailViewModel movieDetailViewModel;
 
   public static Intent createIntent(@NonNull Context context, TopMovie topMovie) {
     Intent intent = new Intent(context, MovieDetailActivity.class);
@@ -37,32 +28,37 @@ public class MovieDetailActivity extends DaggerAppCompatActivity {
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
-    AndroidInjection.inject(this);
     super.onCreate(savedInstanceState);
-
-    setContentView(R.layout.activity_movie_detail);
-
-    setupDataBinding();
 
     setupToolbar();
 
     Intent intent = getIntent();
     if (intent != null) {
       long id = intent.getLongExtra(MOVIE_ID_EXTRA, -1);
-      setupViewModel(id);
+      getData(id);
     }
+  }
+
+  @Override
+  protected Class<MovieDetailViewModel> provideViewModelClass() {
+    return MovieDetailViewModel.class;
+  }
+
+  @Override
+  protected int provideLayout() {
+    return R.layout.activity_movie_detail;
   }
 
   @Override
   protected void onResume() {
     super.onResume();
 
-    movieDetailViewModel.execute();
+    getViewModel().execute();
   }
 
-  private void setupViewModel(long movieId) {
-    movieDetailViewModel.setMovieId(movieId);
-    movieDetailViewModel.getData().observe(this, movieDetailResource -> {
+  private void getData(long movieId) {
+    getViewModel().setMovieId(movieId);
+    getViewModel().getData().observe(this, movieDetailResource -> {
       if (movieDetailResource != null) {
         handleResponse(movieDetailResource);
       }
@@ -87,9 +83,9 @@ public class MovieDetailActivity extends DaggerAppCompatActivity {
 
   private void handleSuccessState(MovieDetail movieDetail) {
     if (movieDetail != null) {
-      dataBinding.setMovie(movieDetail);
+      getDataBinding().setMovie(movieDetail);
       String title = movieDetail.getTitle();
-      dataBinding.collapsingToolbarLayout.setTitle(title);
+      getDataBinding().collapsingToolbarLayout.setTitle(title);
     }
   }
 
@@ -101,13 +97,8 @@ public class MovieDetailActivity extends DaggerAppCompatActivity {
 
   }
 
-  private void setupDataBinding() {
-    dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail);
-    dataBinding.setLifecycleOwner(this);
-  }
-
   private void setupToolbar() {
-    Toolbar toolbar = dataBinding.toolbar;
+    Toolbar toolbar = getDataBinding().toolbar;
     setSupportActionBar(toolbar);
     if (getSupportActionBar() != null) {
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);

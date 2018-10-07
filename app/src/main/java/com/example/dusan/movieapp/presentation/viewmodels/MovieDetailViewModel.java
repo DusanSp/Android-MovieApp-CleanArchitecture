@@ -43,6 +43,12 @@ public class MovieDetailViewModel extends ViewModel {
     movieDetailsUseCase.execute(new MovieDetailSingleObserver(), Params.movieId(movieId));
   }
 
+  @Override
+  protected void onCleared() {
+    this.movieDetailsUseCase.dispose();
+    super.onCleared();
+  }
+
   public LiveData<Resource<MovieDetail>> getData() {
     return data;
   }
