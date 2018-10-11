@@ -16,15 +16,15 @@ public class ActivityBindingAdapters {
     this.activity = activity;
   }
 
-  @BindingAdapter("imageUrl")
-  public static void bindImage(ImageView imageView, String url) {
+  @BindingAdapter("posterUrl")
+  public static void bindPosterImage(ImageView imageView, String url) {
     Glide.with(imageView.getContext())
-        .load("https://image.tmdb.org/t/p/w92" + url)
+        .load("https://image.tmdb.org/t/p/w154" + url)
         .into(imageView);
   }
 
-  @BindingAdapter("posterUrl")
-  public static void bindPosterImage(ImageView imageView, String url) {
+  @BindingAdapter("imageUrl")
+  public static void bindImage(ImageView imageView, String url) {
     Glide.with(imageView.getContext())
         .load("https://image.tmdb.org/t/p/w780" + url)
         .into(imageView);

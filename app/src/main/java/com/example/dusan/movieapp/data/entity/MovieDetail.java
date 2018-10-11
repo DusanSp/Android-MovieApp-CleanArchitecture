@@ -40,7 +40,7 @@ public class MovieDetail {
   @SerializedName("video")
   private Boolean video;
   @SerializedName("vote_average")
-  private Double voteAverage;
+  private Float voteAverage;
   @SerializedName("vote_count")
   private Integer voteCount;
 
@@ -58,5 +58,17 @@ public class MovieDetail {
 
   public String getTitle() {
     return title;
+  }
+
+  public String getOverview() {
+    return overview;
+  }
+
+  public Float getVoteAverage() {
+    return voteAverage;
+  }
+
+  public Integer getVoteCount() {
+    return voteCount;
   }
 }

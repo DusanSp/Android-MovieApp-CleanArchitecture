@@ -1,6 +1,6 @@
-package com.example.dusan.movieapp.presentation.injection;
+package com.example.dusan.movieapp.di;
 
-import android.app.Application;
+import com.example.dusan.movieapp.presentation.view.application.MovieApplication;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.AndroidInjector;
@@ -18,7 +18,7 @@ public interface AppComponent extends AndroidInjector<DaggerApplication> {
   interface Builder {
 
     @BindsInstance
-    Builder application(Application application);
+    Builder application(MovieApplication application);
 
     AppComponent build();
   }

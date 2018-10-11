@@ -14,7 +14,8 @@ import com.example.dusan.movieapp.presentation.model.Resource;
 import com.example.dusan.movieapp.presentation.model.TopMovie;
 import com.example.dusan.movieapp.presentation.viewmodels.MovieDetailViewModel;
 
-public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel, ActivityMovieDetailBinding> {
+public class MovieDetailActivity extends
+    BaseActivity<MovieDetailViewModel, ActivityMovieDetailBinding> {
 
   private static final String TAG = MovieDetailActivity.class.getSimpleName();
   private static final String MOVIE_ID_EXTRA =
@@ -35,8 +36,10 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel, Acti
     Intent intent = getIntent();
     if (intent != null) {
       long id = intent.getLongExtra(MOVIE_ID_EXTRA, -1);
-      getData(id);
+      getViewModel().setMovieId(id);
     }
+
+    getData();
   }
 
   @Override
@@ -56,8 +59,7 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailViewModel, Acti
     getViewModel().execute();
   }
 
-  private void getData(long movieId) {
-    getViewModel().setMovieId(movieId);
+  private void getData() {
     getViewModel().getData().observe(this, movieDetailResource -> {
       if (movieDetailResource != null) {
         handleResponse(movieDetailResource);

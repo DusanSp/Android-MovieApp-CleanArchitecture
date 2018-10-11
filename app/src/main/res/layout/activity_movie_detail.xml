@@ -1,5 +1,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
 
   <data>
     <variable
@@ -15,8 +16,8 @@
     <android.support.design.widget.AppBarLayout
       android:layout_width="match_parent"
       android:layout_height="300dp"
-      android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-      android:fitsSystemWindows="true">
+      android:fitsSystemWindows="true"
+      android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
       <android.support.design.widget.CollapsingToolbarLayout
         android:id="@+id/collapsingToolbarLayout"
@@ -24,8 +25,8 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         app:contentScrim="?attr/colorPrimary"
-        app:expandedTitleMarginStart="48dp"
         app:expandedTitleMarginEnd="64dp"
+        app:expandedTitleMarginStart="48dp"
         app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
         <ImageView
@@ -34,15 +35,15 @@
           android:contentDescription="@null"
           android:fitsSystemWindows="true"
           android:scaleType="centerCrop"
-          app:posterUrl="@{movie.getPosterPath()}"
+          app:imageUrl="@{movie.getBackdropPath()}"
           app:layout_collapseMode="parallax"/>
 
         <android.support.v7.widget.Toolbar
           android:id="@+id/toolbar"
           android:layout_width="match_parent"
           android:layout_height="?android:attr/actionBarSize"
-          app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-          app:layout_collapseMode="pin"/>
+          app:layout_collapseMode="pin"
+          app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
       </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -53,10 +54,42 @@
       android:layout_height="match_parent"
       app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-      <TextView
+      <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."/>
+        android:layout_height="match_parent">
+
+        <ImageView
+          android:id="@+id/image_poster"
+          android:layout_width="wrap_content"
+          android:layout_height="@dimen/details_poster_size"
+          android:layout_margin="@dimen/offset_4"
+          android:contentDescription="@null"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:posterUrl="@{movie.getPosterPath()}"/>
+
+        <TextView
+          android:id="@+id/text_rating"
+          style="@style/TextView.Rating"
+          android:layout_width="@dimen/detail_rating_size"
+          android:layout_height="@dimen/detail_rating_size"
+          android:text="@{movie.getVoteAverage()}"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:text="10"/>
+
+        <TextView
+          style="@style/TextView.OverView"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@{movie.getOverview()}"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/image_poster"
+          tools:text="test neki nesto ovo ono"/>
+
+      </android.support.constraint.ConstraintLayout>
+
     </android.support.v4.widget.NestedScrollView>
 
   </android.support.design.widget.CoordinatorLayout>

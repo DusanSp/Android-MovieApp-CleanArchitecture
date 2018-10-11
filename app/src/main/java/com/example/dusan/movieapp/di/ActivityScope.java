@@ -1,4 +1,4 @@
-package com.example.dusan.movieapp.presentation.injection;
+package com.example.dusan.movieapp.di;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

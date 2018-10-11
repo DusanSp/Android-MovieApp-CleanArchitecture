@@ -8,31 +8,32 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 public abstract class UseCase<T, Params> {
-    private final CompositeDisposable disposables;
 
-    UseCase() {
-        this.disposables = new CompositeDisposable();
+  private CompositeDisposable disposables;
+
+  UseCase() {
+    this.disposables = new CompositeDisposable();
+  }
+
+  abstract Single<T> buildUseCaseObservable(Params params);
+
+  public void execute(DisposableSingleObserver<T> observer, Params params) {
+    final Single<T> observable = buildUseCaseObservable(params)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread());
+
+    addDisposable(observable.subscribeWith(observer));
+  }
+
+  public void dispose() {
+    if (!disposables.isDisposed()) {
+      disposables.clear();
     }
+  }
 
-    abstract Single<T> buildUseCaseObservable(Params params);
-
-    public void execute(DisposableSingleObserver<T> observer, Params params) {
-        final Single<T> observable = buildUseCaseObservable(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-
-        addDisposable(observable.subscribeWith(observer));
+  private void addDisposable(Disposable disposable) {
+    if (disposable != null) {
+      disposables.add(disposable);
     }
-
-    public void dispose() {
-        if (!disposables.isDisposed()) {
-            disposables.dispose();
-        }
-    }
-
-    private void addDisposable(Disposable disposable) {
-        if (disposable != null) {
-            disposables.add(disposable);
-        }
-    }
+  }
 }

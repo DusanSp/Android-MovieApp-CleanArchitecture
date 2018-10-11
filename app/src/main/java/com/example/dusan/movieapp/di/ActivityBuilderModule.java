@@ -1,4 +1,4 @@
-package com.example.dusan.movieapp.presentation.injection;
+package com.example.dusan.movieapp.di;
 
 import com.example.dusan.movieapp.presentation.view.activity.MovieDetailActivity;
 import com.example.dusan.movieapp.presentation.view.activity.TopMoviesActivity;

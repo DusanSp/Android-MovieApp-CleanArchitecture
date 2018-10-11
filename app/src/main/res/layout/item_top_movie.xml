@@ -19,11 +19,11 @@
 
     <ImageView
       android:id="@+id/imageView"
-      android:layout_width="48dp"
-      android:layout_height="48dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginBottom="8dp"
-      android:layout_marginStart="8dp"
+      android:layout_width="@dimen/top_movies_poster_size"
+      android:layout_height="@dimen/top_movies_poster_size"
+      android:layout_marginTop="@dimen/default_margin"
+      android:layout_marginBottom="@dimen/default_margin"
+      android:layout_marginStart="@dimen/default_margin"
       android:contentDescription="@null"
       app:imageUrl="@{vm.getPosterPath()}"
       app:layout_constraintBottom_toBottomOf="parent"
@@ -32,11 +32,11 @@
 
     <TextView
       android:layout_width="wrap_content"
-      android:layout_height="48dp"
-      android:layout_marginTop="8dp"
-      android:layout_marginBottom="8dp"
-      android:layout_marginStart="8dp"
-      android:layout_marginEnd="8dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/default_margin"
+      android:layout_marginBottom="@dimen/default_margin"
+      android:layout_marginStart="@dimen/default_margin"
+      android:layout_marginEnd="@dimen/default_margin"
       android:gravity="center"
       android:text="@{vm.title}"
       android:textColor="@color/text_white"
@@ -45,7 +45,7 @@
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toEndOf="@+id/imageView"
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintVertical_bias="0.0"
+      app:layout_constraintVertical_bias="0.5"
       tools:text="Test"/>
 
   </android.support.constraint.ConstraintLayout>

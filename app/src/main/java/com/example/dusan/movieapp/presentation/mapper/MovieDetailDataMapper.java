@@ -16,9 +16,13 @@ public class MovieDetailDataMapper {
       throw new IllegalArgumentException("Cannot transform null value");
     }
 
-    final MovieDetail movieDetail1 = new MovieDetail(movieDetailSource.getId());
-    movieDetail1.setPosterPath(movieDetailSource.getBackdropPath());
-    movieDetail1.setTitle(movieDetailSource.getTitle());
-    return movieDetail1;
+    final MovieDetail movieDetail = new MovieDetail(movieDetailSource.getId());
+    movieDetail.setBackdropPath(movieDetailSource.getBackdropPath());
+    movieDetail.setTitle(movieDetailSource.getTitle());
+    movieDetail.setOverview(movieDetailSource.getOverview());
+    movieDetail.setVoteAverage(movieDetailSource.getVoteAverage().toString());
+    movieDetail.setVoteCount(movieDetailSource.getVoteCount());
+    movieDetail.setPosterPath(movieDetailSource.getPosterPath());
+    return movieDetail;
   }
 }

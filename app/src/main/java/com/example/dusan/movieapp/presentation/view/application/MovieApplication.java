@@ -4,8 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import com.example.dusan.movieapp.presentation.injection.AppComponent;
-import com.example.dusan.movieapp.presentation.injection.DaggerAppComponent;
+import com.example.dusan.movieapp.di.AppComponent;
+import com.example.dusan.movieapp.di.DaggerAppComponent;
 import dagger.android.AndroidInjector;
 import dagger.android.support.DaggerApplication;
 
