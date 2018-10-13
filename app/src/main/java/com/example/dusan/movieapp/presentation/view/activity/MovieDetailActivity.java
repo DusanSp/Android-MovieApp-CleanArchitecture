@@ -21,9 +21,9 @@ public class MovieDetailActivity extends
   private static final String MOVIE_ID_EXTRA =
       MovieDetailActivity.class.getSimpleName() + ".MOVIE_ID_EXTRA";
 
-  public static Intent createIntent(@NonNull Context context, TopMovie topMovie) {
+  public static Intent createIntent(@NonNull Context context, long movieId) {
     Intent intent = new Intent(context, MovieDetailActivity.class);
-    intent.putExtra(MOVIE_ID_EXTRA, topMovie.getId());
+    intent.putExtra(MOVIE_ID_EXTRA, movieId);
     return intent;
   }
 

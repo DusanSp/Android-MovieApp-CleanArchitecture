@@ -38,7 +38,7 @@ public class TopMoviesAdapter extends DataBoundListAdapter<TopMovie, ItemTopMovi
 
     ITopMovieItemActionsListener topMovieItemActionsListener = topMovie -> {
       Log.d(TAG, "bind: " + item.getTitle());
-      Navigator.getInstance().navigateToMovieActivity(item);
+      Navigator.getInstance().navigateToMovieDetailsActivity(item.getId());
     };
 
     binding.setListener(topMovieItemActionsListener);

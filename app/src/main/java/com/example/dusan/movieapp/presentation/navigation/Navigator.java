@@ -24,9 +24,9 @@ public class Navigator {
     MovieApplication.getApplication().getApplicationContext().startActivity(topMoviesIntent);
   }
 
-  public void navigateToMovieActivity(TopMovie topMovie) {
+  public void navigateToMovieDetailsActivity(long movieId) {
     Intent movieIntent = MovieDetailActivity
-        .createIntent(MovieApplication.getApplication().getApplicationContext(), topMovie);
+        .createIntent(MovieApplication.getApplication().getApplicationContext(), movieId);
     MovieApplication.getApplication().getApplicationContext().startActivity(movieIntent);
   }
 }
