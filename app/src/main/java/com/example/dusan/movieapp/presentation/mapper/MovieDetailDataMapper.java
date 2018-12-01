@@ -20,7 +20,7 @@ public class MovieDetailDataMapper {
     movieDetail.setBackdropPath(movieDetailSource.getBackdropPath());
     movieDetail.setTitle(movieDetailSource.getTitle());
     movieDetail.setOverview(movieDetailSource.getOverview());
-    movieDetail.setVoteAverage(movieDetailSource.getVoteAverage().toString());
+    movieDetail.setVoteAverage(movieDetailSource.getVoteAverage());
     movieDetail.setVoteCount(movieDetailSource.getVoteCount());
     movieDetail.setPosterPath(movieDetailSource.getPosterPath());
     return movieDetail;

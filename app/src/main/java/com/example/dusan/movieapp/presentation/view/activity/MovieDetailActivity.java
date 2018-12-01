@@ -11,7 +11,6 @@ import com.example.dusan.movieapp.R;
 import com.example.dusan.movieapp.databinding.ActivityMovieDetailBinding;
 import com.example.dusan.movieapp.presentation.model.MovieDetail;
 import com.example.dusan.movieapp.presentation.model.Resource;
-import com.example.dusan.movieapp.presentation.model.TopMovie;
 import com.example.dusan.movieapp.presentation.viewmodels.MovieDetailViewModel;
 
 public class MovieDetailActivity extends
@@ -24,6 +23,7 @@ public class MovieDetailActivity extends
   public static Intent createIntent(@NonNull Context context, long movieId) {
     Intent intent = new Intent(context, MovieDetailActivity.class);
     intent.putExtra(MOVIE_ID_EXTRA, movieId);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     return intent;
   }
 

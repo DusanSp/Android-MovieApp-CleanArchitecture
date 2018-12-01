@@ -6,7 +6,9 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import com.bumptech.glide.Glide;
+import com.example.dusan.movieapp.R;
 
 public class ActivityBindingAdapters {
 
@@ -41,5 +43,11 @@ public class ActivityBindingAdapters {
     if (isGone) {
       view.setVisibility(View.GONE);
     }
+  }
+
+  @BindingAdapter("voteAverage")
+  public static void setVoteAverage(TextView textView, Float voteAverage) {
+    String text = textView.getContext().getString(R.string.vote_average, voteAverage);
+    textView.setText(text);
   }
 }

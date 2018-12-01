@@ -27,8 +27,6 @@ public class TopMoviesViewModel extends ViewModel {
   // page number
   private final MutableLiveData<Integer> page;
 
-
-
   @Inject
   public TopMoviesViewModel(TopMoviesUseCase topMoviesUseCaseUseCase, TopMoviesDataMapper movieModelDataMapper) {
 

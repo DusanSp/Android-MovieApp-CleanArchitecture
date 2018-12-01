@@ -7,8 +7,8 @@ public class MovieDetail {
   private String posterPath;
   private String title;
   private String overview;
-  private int voteCount;
-  private String voteAverage;
+  private long voteCount;
+  private Float voteAverage;
 
   public MovieDetail(long id) {
     this.id = id;
@@ -38,19 +38,19 @@ public class MovieDetail {
     this.overview = overview;
   }
 
-  public int getVoteCount() {
-    return voteCount;
+  public String getVoteCount() {
+    return String.valueOf(voteCount);
   }
 
   public void setVoteCount(int voteCount) {
     this.voteCount = voteCount;
   }
 
-  public String getVoteAverage() {
+  public Float getVoteAverage() {
     return voteAverage;
   }
 
-  public void setVoteAverage(String voteAverage) {
+  public void setVoteAverage(Float voteAverage) {
     this.voteAverage = voteAverage;
   }
 
