@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion build_versions.target_sdk
@@ -77,4 +80,8 @@ dependencies {
     implementation deps.dagger.runtime
     annotationProcessor deps.dagger.compiler
     annotationProcessor deps.dagger.dagger_android_processor
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    kapt deps.dagger.dagger_android_processor
+    kapt deps.dagger.compiler
 }

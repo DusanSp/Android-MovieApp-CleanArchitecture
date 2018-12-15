@@ -40,8 +40,8 @@ public class TopMovie {
     this.posterPath = posterPath;
   }
 
-  public String getVoteAverage() {
-    return voteAverage.toString();
+  public Double getVoteAverage() {
+    return voteAverage;
   }
 
   public void setVoteAverage(Double voteAverage) {

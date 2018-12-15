@@ -30,16 +30,4 @@ public class MovieApplication extends DaggerApplication {
     appComponent.inject(this);
     return appComponent;
   }
-
-  public static boolean haveInternetConnection() {
-    ConnectivityManager cm =
-        (ConnectivityManager) getApplication().getApplicationContext()
-            .getSystemService(Context.CONNECTIVITY_SERVICE);
-
-    if (cm == null) {
-      return false;
-    }
-    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-    return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-  }
 }
