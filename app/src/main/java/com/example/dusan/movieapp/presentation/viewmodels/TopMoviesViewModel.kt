@@ -14,8 +14,8 @@ import com.example.dusan.movieapp.presentation.model.TopMovie
 import javax.inject.Inject
 
 class TopMoviesViewModel
-@Inject constructor(private val topMoviesUseCase: TopMoviesUseCase,
-                    private val movieModelDataMapper: TopMoviesDataMapper) : ViewModel() {
+@Inject constructor(val topMoviesUseCase: TopMoviesUseCase,
+                    val movieModelDataMapper: TopMoviesDataMapper) : ViewModel() {
 
     // received data
     var data: MutableLiveData<Resource<List<TopMovie>>> = MutableLiveData()
@@ -29,7 +29,7 @@ class TopMoviesViewModel
         }
 
     init {
-        data.value = Resource.loading(null)
+        data.postValue(Resource.loading(null))
         setPageValue(1)
     }
 
@@ -39,14 +39,14 @@ class TopMoviesViewModel
     }
 
     private fun setPageValue(value: Int) {
-        page.value = value
+        page.postValue(value)
     }
 
     private fun setData(resource: Resource<List<TopMovie>>) {
         data.value = resource
     }
 
-    private inner class TopMoviesSingleObserver : DefaultSingleObserver<BaseResponse<TopMovieDomainData>>() {
+    public inner class TopMoviesSingleObserver : DefaultSingleObserver<BaseResponse<TopMovieDomainData>>() {
         override fun onSuccess(topMovies: BaseResponse<TopMovieDomainData>) {
             setData(Resource.success<List<TopMovie>>(ArrayList(movieModelDataMapper.transform(topMovies.results)!!)))
         }

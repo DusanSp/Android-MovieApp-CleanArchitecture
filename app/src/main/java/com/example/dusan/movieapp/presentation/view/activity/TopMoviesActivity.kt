@@ -91,7 +91,7 @@ class TopMoviesActivity : BaseActivity<TopMoviesViewModel, ActivityTopMoviesBind
         if (topMoviesList != null) {
             Log.d(TAG, "SUCCESS")
             dataBinding.loadingGone = true
-            topMoviesAdapter!!.submitList(topMoviesList)
+            topMoviesAdapter?.submitList(topMoviesList)
             for (topMovieModel in topMoviesList) {
                 Log.d(TAG, topMovieModel.title)
             }

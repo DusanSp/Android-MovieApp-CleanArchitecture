@@ -81,7 +81,18 @@ dependencies {
     annotationProcessor deps.dagger.compiler
     annotationProcessor deps.dagger.dagger_android_processor
 
+    // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     kapt deps.dagger.dagger_android_processor
     kapt deps.dagger.compiler
+
+    // Required -- JUnit 4 framework
+    testImplementation 'junit:junit:4.12'
+    // Optional -- Robolectric environment
+    testImplementation 'androidx.test:core:1.1.0'
+    // Optional -- Mockito framework
+    testImplementation 'org.mockito:mockito-inline:2.19.0'
+    // hamcrest
+    testImplementation 'org.hamcrest:hamcrest-library:1.3'
+    testImplementation "android.arch.core:core-testing:1.1.1"
 }
